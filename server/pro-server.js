@@ -84,7 +84,7 @@ const renderer = createRenderer(bundle, {
     clientManifest
 })
 
-const port = 8080
+const port = 8086
 
 app.listen(port, () => {
     console.log(`server started at localhost:${ port }`)
