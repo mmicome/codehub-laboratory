@@ -18,4 +18,4 @@ ADD server /code/server/
 EXPOSE 8086
 EXPOSE 443
 
-CMD [ "pm2-runtime", "start", "npm", "--", "server" ]
+CMD [ "pm2-runtime", "start", "npm", "--", "start" ]

@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development rimraf dist && node ./server/dev-server.js",
-    "server": "cross-env NODE_ENV=production node ./server/pro-server.js --mode production",
+    "start": "cross-env NODE_ENV=production node ./server/pro-server.js --mode production",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules --mode production",
     "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules --mode production",
@@ -14,7 +14,7 @@
     "cicd": "./scripts/cicd.sh",
     "clean": "lerna run clean --parallel",
     "deploy": "./scripts/deploy.sh",
-    "start": "./scripts/start.js",
+    "server": "./scripts/start.js",
     "start:https": "HTTPS=1 ./scripts/start.js"
   },
   "keywords": [],

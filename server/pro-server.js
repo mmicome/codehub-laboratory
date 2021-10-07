@@ -7,7 +7,21 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const favicon = require('serve-favicon')
 const cors = require('cors'); // 引入cors插件
 const resolve = file => path.resolve(__dirname, file)
-
+const os = require('os');
+///////////////////获取本机ip///////////////////////
+function getIPAdress() {
+    var interfaces = os.networkInterfaces();
+    for (var devName in interfaces) {
+        var iface = interfaces[devName];
+        for (var i = 0; i < iface.length; i++) {
+            var alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
+            }
+        }
+    }
+}
+const myHost = getIPAdress();
 const app = express()
 // 开启 gzip 压缩 https://github.com/woai3c/node-blog/blob/master/doc/optimize.md
 const compression = require('compression')
@@ -86,8 +100,8 @@ const renderer = createRenderer(bundle, {
 
 const port = 8086
 
-app.listen(port, () => {
-    console.log(`server started at localhost:${ port }`)
+app.listen(port, myHost, () => {
+    console.log(`server started at http://${myHost}:${ port }`)
 })
 
 setApi(app)
