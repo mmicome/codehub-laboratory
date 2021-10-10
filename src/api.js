@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 var instance = axios.create({
-    baseURL: 'http://192.168.230.102:8086',
+    baseURL: 'http://www.icome.cloud:8086',
     timeout: 1000,
     withCredentials: true
 });
