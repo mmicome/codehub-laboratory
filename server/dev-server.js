@@ -5,7 +5,21 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const devServer = require('../build/setup-dev-server')
 const favicon = require('serve-favicon')
 const resolve = (file) => path.resolve(__dirname, file)
-
+const os = require('os');
+///////////////////获取本机ip///////////////////////
+function getIPAdress() {
+    var interfaces = os.networkInterfaces();
+    for (var devName in interfaces) {
+        var iface = interfaces[devName];
+        for (var i = 0; i < iface.length; i++) {
+            var alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
+            }
+        }
+    }
+}
+const myHost = getIPAdress();
 const app = express()
 
 const serve = (path) => {
@@ -51,7 +65,7 @@ function render(req, res) {
         if (err) {
             return handleError(err)
         }
-        
+
         res.send(html)
         console.log(`whole request: ${ Date.now() - startTime }ms`)
     })
@@ -71,10 +85,9 @@ readyPromise = devServer(
 
 const port = 8086
 
-app.listen(port, () => {
-    console.log(`server started at localhost:${ port }`)
+app.listen(port, myHost, () => {
+    console.log(`server started at http://${myHost}:${ port }`)
 })
-
 setApi(app)
 
 app.get('*', (req, res) => {
